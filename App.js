@@ -7,14 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  Alert,
-  Modal,
-  Pressable,
 } from "react-native";
 
 export default function App() {
   const [name, setName] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
   const [amount, setAmount] = useState(0);
   const [transactions, setTransactions] = useState([
     {
@@ -66,7 +62,7 @@ export default function App() {
     return (
       <View style={[styles.tracker, styles.item]}>
         <Text style={[styles.child]}>{item.name}</Text>
-        <Text style={[styles.child]}>{item.amount}</Text>
+        <Text style={[styles.child]}>{item.amount.toString()}</Text>
       </View>
     );
   };
@@ -89,34 +85,10 @@ export default function App() {
       <TextInput
         style={[styles.input, styles.text]}
         onChangeText={setAmount}
-        value={amount}
+        value={amount.toString()}
         placeholder="Enter Amount"
         keyboardType="numeric"
       />
-      {/* modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      {/* modal */}
-      
       <TouchableOpacity style={styles.button} onPress={addTransaction}>
         <Text style={styles.text}>Add Transaction</Text>
       </TouchableOpacity>
